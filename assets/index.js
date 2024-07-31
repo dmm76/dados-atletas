@@ -2,6 +2,7 @@ class Atleta {
   constructor(atletas) {
     this.atletas = atletas;
   }
+
   calculaCategoria(idade) {
     switch (true) {
       case idade >= 9 && idade <= 11:
@@ -30,9 +31,18 @@ class Atleta {
   obtemNotasAtleta() {}
 
   obtemCategoria() {
-    let categoriaGinasta = this.calculaCategoria(this.atletas[0].idade);
-    // console.log(categoriaGinasta);
-    return categoriaGinasta;
+    let self = this;
+    this.atletas.forEach(function (ginasta) {
+      const categoria = self.calculaCategoria(ginasta.idade);
+      console.log(
+        "Nome: " +
+          ginasta.nome +
+          ", idade: " +
+          ginasta.idade +
+          ", Categoria: " +
+          categoria
+      );
+    });
   }
 
   obtemIMC() {}
@@ -43,31 +53,38 @@ class Atleta {
 let atletas = [
   {
     nome: "Cesar Abascal",
-    idade: 21,
+    idade: 31,
     peso: 63,
     altura: 1.88,
     notas: [10, 9.34, 8.42, 10, 7.88],
   },
   {
     nome: "Fernando Puntel",
-    idade: 2,
+    idade: 14,
     peso: 65,
     altura: 1.94,
     notas: [8, 10, 10, 7, 9.33],
   },
   {
     nome: "Daiane Jelinsky",
-    idade: 22,
+    idade: 12,
     peso: 50,
     altura: 1.75,
     notas: [7, 10, 9.5, 9.5, 8],
   },
   {
     nome: "Bruno Castro",
-    idade: 21,
+    idade: 22,
     peso: 64,
     altura: 1.72,
     notas: [10, 10, 10, 9, 9.5],
+  },
+  {
+    nome: "Dayane dos Santos",
+    idade: 11,
+    peso: 63,
+    altura: 1.4,
+    notas: [10, 9.34, 8.42, 10, 7.88],
   },
 ];
 
