@@ -26,7 +26,13 @@ class Atleta {
 
   obtemIdadeAtleta() {}
 
-  obtemPesoAtleta() {}
+  obtemPesoAtleta() {
+    let peso = 0;
+    this.atletas.forEach(function (ginasta) {
+      peso = ginasta.peso;
+      console.log("Nome: " + ginasta.nome + ", Peso: " + peso);
+    });
+  }
 
   obtemNotasAtleta() {}
 
@@ -90,4 +96,5 @@ let atletas = [
 
 const ginasta = new Atleta(atletas);
 
-console.log(ginasta.obtemCategoria());
+ginasta.obtemCategoria();
+ginasta.obtemPesoAtleta();
