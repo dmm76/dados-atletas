@@ -2,7 +2,20 @@ class Atleta {
   constructor(atletas) {
     this.atletas = atletas;
   }
-  calculaCategoria() {}
+  calculaCategoria(idade) {
+    switch (true) {
+      case idade >= 9 && idade <= 11:
+        return "Infantil";
+      case idade >= 12 && idade <= 13:
+        return "Juvenil";
+      case idade >= 14 && idade <= 15:
+        return "Intermediário";
+      case idade >= 16 && idade <= 30:
+        return "Adulto";
+      default:
+        return "Sem categoria";
+    }
+  }
 
   calculaIMC() {}
 
@@ -16,19 +29,10 @@ class Atleta {
 
   obtemNotasAtleta() {}
 
-  obtemCategoria(idade) {
-    switch (true) {
-      case idade >= 9 && idade <= 11:
-        return "Infantil";
-      case idade >= 12 && idade <= 13:
-        return "Juvenil";
-      case idade >= 14 && idade <= 15:
-        return "Intermediário";
-      case idade >= 16 && idade <= 30:
-        return "Adulto";
-      default:
-        return "Sem categoria";
-    }
+  obtemCategoria() {
+    let categoriaGinasta = this.calculaCategoria(this.atletas[0].idade);
+    // console.log(categoriaGinasta);
+    return categoriaGinasta;
   }
 
   obtemIMC() {}
@@ -69,4 +73,4 @@ let atletas = [
 
 const ginasta = new Atleta(atletas);
 
-console.log(ginasta.obtemCategoria(30));
+console.log(ginasta.obtemCategoria());
