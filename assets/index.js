@@ -18,42 +18,59 @@ class Atleta {
     }
   }
 
-  calculaIMC() {}
-
-  calculaMediaValida() {}
-
-  obtemNomeAtleta() {}
-
-  obtemIdadeAtleta() {}
-
-  obtemPesoAtleta() {
-    let peso = 0;
-    this.atletas.forEach(function (ginasta) {
-      peso = ginasta.peso;
-      console.log("Nome: " + ginasta.nome + ", Peso: " + peso);
+  obtemNomeAtleta() {
+    return this.atletas.map(function (ginasta) {
+      return ginasta.nome;
     });
   }
 
-  obtemNotasAtleta() {}
+  obtemIdadeAtleta() {
+    return this.atletas.map(function (ginasta) {
+      return {
+        nome: ginasta.nome,
+        peso: ginasta.idade,
+      };
+    });
+  }
+
+  obtemPesoAtleta() {
+    return this.atletas.map(function (ginasta) {
+      return {
+        nome: ginasta.nome,
+        peso: ginasta.peso,
+      };
+    });
+  }
+
+  obtemIMC() {
+    let imc = 0;
+    return this.atletas.map(function (ginasta) {
+      imc = ginasta.peso / (ginasta.altura * ginasta.altura);
+      return {
+        nome: ginasta.nome,
+        peso: ginasta.peso,
+        imc: imc.toFixed(2),
+      };
+    });
+  }
 
   obtemCategoria() {
     let self = this;
-    this.atletas.forEach(function (ginasta) {
+    return this.atletas.map(function (ginasta) {
       const categoria = self.calculaCategoria(ginasta.idade);
-      console.log(
-        "Nome: " +
-          ginasta.nome +
-          ", idade: " +
-          ginasta.idade +
-          ", Categoria: " +
-          categoria
-      );
+      return {
+        nome: ginasta.nome,
+        idade: ginasta.idade,
+        categoria: categoria,
+      };
     });
   }
-
-  obtemIMC() {}
-
-  obtemMediaValida() {}
+  obtemNotasAtleta() {
+    return ginasta.notas;
+  }
+  obtemMediaValida() {
+    return media;
+  }
 }
 
 let atletas = [
@@ -96,5 +113,10 @@ let atletas = [
 
 const ginasta = new Atleta(atletas);
 
-ginasta.obtemCategoria();
-ginasta.obtemPesoAtleta();
+const categorias = ginasta.obtemCategoria();
+const pesos = ginasta.obtemPesoAtleta();
+const imc = ginasta.obtemIMC();
+
+console.log(categorias);
+console.log(pesos);
+console.log(imc);
