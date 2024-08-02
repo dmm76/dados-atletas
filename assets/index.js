@@ -65,11 +65,29 @@ class Atleta {
       };
     });
   }
+
   obtemNotasAtleta() {
-    return ginasta.notas;
+    return this.atletas.map(function (ginasta) {
+      return {
+        nome: ginasta.nome,
+        nota: ginasta.notas,
+      };
+    });
   }
+
   obtemMediaValida() {
-    return media;
+    return this.atletas.map(function (ginasta) {
+      let soma = ginasta.notas.reduce(function (total, nota) {
+        return total + nota;
+      }, 0);
+
+      let media = soma / ginasta.notas.length;
+
+      return {
+        nome: ginasta.nome,
+        media: media.toFixed(2),
+      };
+    });
   }
 }
 
@@ -116,7 +134,12 @@ const ginasta = new Atleta(atletas);
 const categorias = ginasta.obtemCategoria();
 const pesos = ginasta.obtemPesoAtleta();
 const imc = ginasta.obtemIMC();
+const notas = ginasta.obtemNotasAtleta();
+const mediaValida = ginasta.obtemMediaValida();
 
-console.log(categorias);
-console.log(pesos);
-console.log(imc);
+// console.log(categorias);
+// console.log(pesos);
+// console.log(imc);
+// console.log(notas);
+
+console.log(mediaValida);
