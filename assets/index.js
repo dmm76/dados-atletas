@@ -77,15 +77,66 @@ class Atleta {
 
   obtemMediaValida() {
     return this.atletas.map(function (ginasta) {
-      let soma = ginasta.notas.reduce(function (total, nota) {
+      if (ginasta.notas.length <= 2) {
+        return {
+          nome: ginasta.nome,
+          media: "0.00",
+        }; // Se houver 2 ou menos notas, a média é zero após descartar
+      }
+
+      // Ordena as notas e remove a maior e a menor
+      let notasOrdenadas = [...ginasta.notas].sort((a, b) => a - b);
+      let notasDescarte = notasOrdenadas.slice(1, -1);
+
+      // utiliza reduce() para somar as notas e atribuir a variavel soma
+      let soma = notasDescarte.reduce(function (total, nota) {
         return total + nota;
       }, 0);
 
-      let media = soma / ginasta.notas.length;
+      //calcula a média
+      let media = soma / notasDescarte.length;
 
+      //retorn nome, media do ginasta
       return {
         nome: ginasta.nome,
         media: media.toFixed(2),
+      };
+    });
+  }
+
+  //A partir daqui é reference a trazer os dados individuais dos atletas
+  //para representar na funcao obtemDadosAtletas()
+
+  calculaIMC(peso, altura) {
+    return (peso / (altura * altura)).toFixed(2);
+  }
+
+  calculaMedia(notas) {
+    if (notas.length <= 2) return 0; // Se houver 2 ou menos notas, a média é zero após descartar
+
+    // Ordena as notas e remove a maior e a menor
+    let notasOrdenadas = [...notas].sort((a, b) => a - b);
+    let notasDescarte = notasOrdenadas.slice(1, -1);
+
+    let soma = notasDescarte.reduce((total, nota) => total + nota, 0);
+    return (soma / notasDescarte.length).toFixed(2);
+  }
+
+  obtemDadosAtletas() {
+    return this.atletas.map((ginasta) => {
+      const categoria = this.calculaCategoria(ginasta.idade);
+      const imc = this.calculaIMC(ginasta.peso, ginasta.altura);
+      const media = this.calculaMedia(ginasta.notas);
+
+      return {
+        Nome: ginasta.nome,
+        Idade: ginasta.idade,
+        Peso: ginasta.peso,
+        Altura: ginasta.altura,
+        Notas: ginasta.notas,
+        Categoria: categoria,
+        Imc: imc,
+        Média_válida: media,
       };
     });
   }
@@ -94,9 +145,9 @@ class Atleta {
 let atletas = [
   {
     nome: "Cesar Abascal",
-    idade: 31,
-    peso: 63,
-    altura: 1.88,
+    idade: 30,
+    peso: 80,
+    altura: 1.7,
     notas: [10, 9.34, 8.42, 10, 7.88],
   },
   {
@@ -123,7 +174,7 @@ let atletas = [
   {
     nome: "Dayane dos Santos",
     idade: 11,
-    peso: 63,
+    peso: 43,
     altura: 1.4,
     notas: [10, 9.34, 8.42, 10, 7.88],
   },
@@ -136,10 +187,12 @@ const pesos = ginasta.obtemPesoAtleta();
 const imc = ginasta.obtemIMC();
 const notas = ginasta.obtemNotasAtleta();
 const mediaValida = ginasta.obtemMediaValida();
+const dadosGinastas = ginasta.obtemDadosAtletas();
 
 // console.log(categorias);
 // console.log(pesos);
 // console.log(imc);
 // console.log(notas);
+//console.log(mediaValida);
 
-console.log(mediaValida);
+console.log(dadosGinastas);
